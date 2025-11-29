@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberStack | Future of Digital Identity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cyber: {
+                red: '#FF1F1F', // A unique, vibrant red
+                dark: '#0A0A0A', // Dark charcoal/almost black
+                gray: '#1F1F1F',
+                light: '#E5E5E5',
+                glass: 'rgba(255, 255, 255, 0.05)',
+              }
+            },
+            fontFamily: {
+              sans: ['Montserrat', 'sans-serif'],
+              display: ['Montserrat', 'sans-serif'],
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+      body {
+        background-color: #050505;
+        color: #E5E5E5;
+        font-family: 'Montserrat', sans-serif;
+        overflow-x: hidden;
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0A0A0A;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #FF1F1F;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      
+      /* Swiper Customization for Behance look */
+      .swiper-button-next, .swiper-button-prev {
+        color: #FF1F1F !important;
+        background: rgba(0,0,0,0.5);
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 50%;
+        backdrop-filter: blur(4px);
+        transition: all 0.3s ease;
+      }
+      .swiper-button-next:hover, .swiper-button-prev:hover {
+        background: rgba(255, 31, 31, 0.9);
+        color: white !important;
+      }
+      .swiper-button-next:after, .swiper-button-prev:after {
+        font-size: 18px !important;
+        font-weight: bold;
+      }
+      .swiper-pagination-bullet {
+        background: #666 !important;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+      }
+      .swiper-pagination-bullet-active {
+        background: #FF1F1F !important;
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^6.22.3",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "swiper": "https://cdn.jsdelivr.net/npm/swiper@11/swiper.min.mjs",
+    "swiper/modules": "https://cdn.jsdelivr.net/npm/swiper@11/modules/index.min.mjs",
+    "swiper/": "https://aistudiocdn.com/swiper@^12.0.3/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
