@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../components/ui/Button';
 import { Mail, MapPin, Phone, Sparkles } from 'lucide-react';
-import { generateCreativeBrief } from '../services/geminiService';
+import { generateWithGemini } from '../services/geminiService';
 import { SERVICES, SOCIAL_LINKS } from '../constants';
 
 const Contact: React.FC = () => {
@@ -17,7 +17,22 @@ const Contact: React.FC = () => {
   const handleAiGenerate = async () => {
     if (!ideaInput) return;
     setIsGenerating(true);
-    const brief = await generateCreativeBrief(ideaInput, selectedService);
+
+    const prompt = `
+      You are a senior creative director at a design studio called CyberStack.
+      A potential client has an idea: "${ideaInput}" regarding the service: "${selectedService}".
+      
+      Please generate a structured, professional project brief in HTML format (using <h3>, <ul>, <li>, <p> tags only, no <html> or <body>).
+      The brief should include:
+      1. Project Objective
+      2. Key Features/Requirements
+      3. Target Audience (Make an educated guess)
+      4. Suggested Mood/Vibe (Futuristic, Clean, etc.)
+      
+      Keep it concise and inspiring.
+    `;
+
+    const brief = await generateWithGemini(prompt);
     setAiBrief(brief);
     setIsGenerating(false);
   };
