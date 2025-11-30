@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, Rocket, Lock, Unlock } from 'lucide-react';
+import { Menu, X, Rocket, Lock, Unlock, Save, AlertCircle } from 'lucide-react';
 import { NAV_LINKS, BRAND_NAME, SOCIAL_LINKS } from '../constants';
 import { useProjects } from '../context/ProjectContext';
 
@@ -8,7 +8,12 @@ const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
-  const { isAdmin, toggleAdmin } = useProjects();
+  const { isAdmin, toggleAdmin, exportData } = useProjects();
+
+  // Admin Login Modal State
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,21 +35,25 @@ const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       // If currently admin, just turn it off (Log out)
       toggleAdmin();
     } else {
-      // Immediate prompt for password
-      const password = window.prompt("Enter Admin Access Code:");
-      
-      if (password === null) return; // User cancelled
+      // Open custom modal instead of window.prompt
+      setShowLoginModal(true);
+      setPasswordInput('');
+      setErrorMsg('');
+    }
+  };
 
-      if (password.toLowerCase() === "cyber2026") {
-        toggleAdmin();
-      } else {
-        alert("Access Denied: Incorrect Password");
-      }
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput.toLowerCase() === "cyber2026") {
+      toggleAdmin();
+      setShowLoginModal(false);
+    } else {
+      setErrorMsg("Access Denied: Incorrect Code");
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-cyber-red selection:text-white">
+    <div className="min-h-screen flex flex-col font-sans selection:bg-cyber-red selection:text-white relative">
       {/* Navigation */}
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -154,29 +163,102 @@ const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
               <li>
                 <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-cyber-red transition-colors block">LinkedIn</a>
               </li>
-              <li className="hover:text-cyber-red transition-colors cursor-pointer opacity-50 cursor-not-allowed" title="Coming Soon">Instagram</li>
-              <li className="hover:text-cyber-red transition-colors cursor-pointer opacity-50 cursor-not-allowed" title="Coming Soon">Behance</li>
+              <li>
+                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-cyber-red transition-colors block">Instagram</a>
+              </li>
+              <li>
+                <a href={SOCIAL_LINKS.behance} target="_blank" rel="noopener noreferrer" className="hover:text-cyber-red transition-colors block">Behance</a>
+              </li>
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+        <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm relative z-50">
           <p>&copy; {new Date().getFullYear()} CyberStack. All rights reserved.</p>
           <div className="flex items-center gap-4 mt-4 md:mt-0">
              <div className="flex items-center gap-2">
                  <span>Powered by Innovation</span>
                  <Rocket size={14} className="text-cyber-red" />
              </div>
-             <button 
-                type="button"
-                onClick={handleAdminToggle} 
-                className={`p-3 rounded transition-colors cursor-pointer flex items-center justify-center ${isAdmin ? 'text-cyber-red bg-white/10' : 'text-gray-600 hover:text-white hover:bg-white/5'}`}
-                title={isAdmin ? "Logout Admin" : "Admin Access"}
-             >
-                 {isAdmin ? <Unlock size={18} /> : <Lock size={18} />}
-             </button>
+             
+             {/* Admin Controls */}
+             <div className="flex items-center gap-2 border-l border-white/10 pl-4 ml-4">
+               {isAdmin && (
+                 <button
+                   type="button"
+                   onClick={exportData}
+                   className="p-2 rounded bg-white/5 hover:bg-green-600 text-white hover:text-white transition-colors cursor-pointer flex items-center justify-center"
+                   title="Download Backup / Save Changes"
+                 >
+                   <Save size={18} />
+                 </button>
+               )}
+               <button 
+                  type="button"
+                  onClick={handleAdminToggle} 
+                  className={`p-2 rounded transition-colors cursor-pointer flex items-center justify-center ${isAdmin ? 'text-cyber-red bg-white/10' : 'text-gray-600 hover:text-white hover:bg-white/5'}`}
+                  title="Admin Access"
+               >
+                   {isAdmin ? <Unlock size={18} /> : <Lock size={18} />}
+               </button>
+             </div>
           </div>
         </div>
       </footer>
+
+      {/* Admin Login Modal Overlay */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+            {/* Backdrop */}
+            <div 
+                className="absolute inset-0 bg-black/90 backdrop-blur-md" 
+                onClick={() => setShowLoginModal(false)}
+            ></div>
+            
+            {/* Modal Popup */}
+            <div className="relative bg-neutral-900 border border-cyber-red shadow-[0_0_50px_rgba(255,31,31,0.2)] p-8 rounded-2xl w-full max-w-md transform transition-all">
+                <button 
+                    onClick={() => setShowLoginModal(false)}
+                    className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors"
+                >
+                    <X size={20} />
+                </button>
+
+                <div className="text-center mb-8">
+                    <div className="w-16 h-16 bg-cyber-red/10 rounded-full flex items-center justify-center text-cyber-red mx-auto mb-4 border border-cyber-red/20">
+                        <Lock size={32} />
+                    </div>
+                    <h3 className="text-2xl font-display font-bold text-white mb-2">Admin Security</h3>
+                    <p className="text-gray-400 text-sm">Restricted access area. Please verify your identity.</p>
+                </div>
+
+                <form onSubmit={handleLoginSubmit} className="space-y-4">
+                    <div>
+                        <input 
+                            type="password" 
+                            className={`w-full bg-black border ${errorMsg ? 'border-red-500 text-red-500' : 'border-white/10 text-white'} rounded-lg px-4 py-3 text-center tracking-[0.2em] focus:border-cyber-red outline-none transition-colors font-bold placeholder:font-normal`}
+                            placeholder="ACCESS CODE"
+                            value={passwordInput}
+                            onChange={(e) => setPasswordInput(e.target.value)}
+                            autoFocus
+                        />
+                    </div>
+                    
+                    {errorMsg && (
+                        <div className="flex items-center justify-center gap-2 text-red-500 text-xs font-bold bg-red-500/10 py-2 rounded">
+                            <AlertCircle size={12} /> {errorMsg}
+                        </div>
+                    )}
+
+                    <button 
+                        type="submit"
+                        className="w-full bg-cyber-red hover:bg-red-600 text-white font-bold py-3 rounded-lg shadow-lg shadow-red-900/20 transition-all transform active:scale-[0.98]"
+                    >
+                        UNLOCK SYSTEM
+                    </button>
+                </form>
+            </div>
+        </div>
+      )}
     </div>
   );
 };

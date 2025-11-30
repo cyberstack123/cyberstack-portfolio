@@ -1,8 +1,12 @@
 import React from 'react';
 import { TIMELINE, FOUNDER_NAME, SOCIAL_LINKS } from '../constants';
-import { Mail, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Linkedin, Twitter, Instagram } from 'lucide-react';
+import EditableImage from '../components/EditableImage';
+import { useProjects } from '../context/ProjectContext';
 
 const About: React.FC = () => {
+  const { isAdmin, aboutImage, updateAboutImage } = useProjects();
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -20,8 +24,18 @@ const About: React.FC = () => {
         {/* Bio Section */}
         <div className="md:col-span-7 space-y-8">
             <div className="flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left">
+                {/* Editable Profile Image */}
+                <div className="shrink-0">
+                  <EditableImage 
+                    imageSrc={aboutImage}
+                    onImageUpdate={updateAboutImage}
+                    isAdmin={isAdmin}
+                    className="w-48 h-48 md:w-56 md:h-56 rounded-full border-[3px] border-cyber-red shadow-[0_0_20px_rgba(255,31,31,0.2)]"
+                    placeholderText="Upload Photo"
+                  />
+                </div>
                 
-                <div className="prose prose-invert prose-lg">
+                <div className="prose prose-invert prose-lg pt-4">
                     <h3 className="text-2xl font-bold text-white mb-4">Hello, I'm {FOUNDER_NAME}.</h3>
                     <p className="text-gray-300">
                         I am a multidisciplinary designer and digital strategist focused on building resilient brand identities. 
@@ -46,6 +60,7 @@ const About: React.FC = () => {
             <div className="flex gap-4 pt-4 justify-center md:justify-start">
                 <a href={SOCIAL_LINKS.twitter} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-cyber-red hover:text-white transition-colors"><Twitter size={20} /></a>
                 <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-cyber-red hover:text-white transition-colors"><Linkedin size={20} /></a>
+                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-cyber-red hover:text-white transition-colors"><Instagram size={20} /></a>
                 <a href={`mailto:${SOCIAL_LINKS.email}`} className="p-3 bg-white/5 rounded-full hover:bg-cyber-red hover:text-white transition-colors"><Mail size={20} /></a>
             </div>
         </div>

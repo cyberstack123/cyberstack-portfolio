@@ -1,8 +1,18 @@
-import { Project, Service, TimelineItem } from './types';
+// Simulating database content
+
+// IMPORT YOUR IMAGES HERE
+// By importing them, Vite ensures they end up in the build folder correctly.
+import profilePlaceholder from './assets/profile.jpg'; 
+
+// For project sliders, you would import images like this:
+// import p1_img1 from './assets/projects/neon-nexus/1.jpg';
+// import p1_img2 from './assets/projects/neon-nexus/2.jpg';
+
+// Since I cannot create the folders for you, I will use placeholder URLs.
+// YOU SHOULD REPLACE THESE URLS WITH YOUR IMPORTED VARIABLES ABOVE.
 
 export const BRAND_NAME = "CyberStack";
 export const FOUNDER_NAME = "Muaz Oyebisi";
-export const LAUNCH_YEAR = "2026";
 
 export const SOCIAL_LINKS = {
   twitter: 'https://x.com/CyberdeWeb3',
@@ -12,16 +22,9 @@ export const SOCIAL_LINKS = {
   behance: 'https://www.behance.net/muazoyebisi'
 };
 
-export const NAV_LINKS = [
-  { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
-  { label: 'Services', path: '/services' },
-  { label: 'Work', path: '/portfolio' },
-  { label: 'Gallery', path: '/projects' }, // Added Gallery link
-  { label: 'Contact', path: '/contact' },
-];
+export const PROFILE_IMAGE = profilePlaceholder;
 
-export const TIMELINE: TimelineItem[] = [
+export const TIMELINE = [
   {
     year: '2020',
     title: 'The Beginning',
@@ -44,13 +47,13 @@ export const TIMELINE: TimelineItem[] = [
   },
 ];
 
-export const SERVICES: Service[] = [
+export const SERVICES = [
   {
     id: 'brand-identity',
     title: 'Brand Identity Design',
     description: 'Crafting cohesive visual systems that tell your unique story.',
     icon: 'Shield',
-    features: ['Logo Systems', 'Typography Selection', 'Color Palettes', 'Brand Guidelines'],
+    features: ['Logo Systems', 'Typography', 'Color Palettes', 'Brand Guidelines'],
   },
   {
     id: 'brand-strategy',
@@ -62,7 +65,7 @@ export const SERVICES: Service[] = [
   {
     id: 'web3-creations',
     title: 'Web3 Creations',
-    description: 'Futuristic digital assets, NFT-style graphics, and on-chain branding for the decentralized web.',
+    description: 'Futuristic digital assets, NFT-style graphics, and on-chain branding.',
     icon: 'Hexagon',
     features: ['NFT Art Direction', 'Token Visuals', 'Metaverse Identity', 'Smart Contract UI'],
   },
@@ -75,7 +78,7 @@ export const SERVICES: Service[] = [
   },
 ];
 
-export const PROJECTS: Project[] = [
+export const PROJECTS = [
   {
     id: 'neon-nexus',
     title: 'Neon Nexus',
@@ -83,18 +86,18 @@ export const PROJECTS: Project[] = [
     client: 'FinTech Startup',
     year: '2024',
     summary: 'A complete rebrand for a next-gen crypto wallet.',
-    image: 'https://picsum.photos/800/600?random=1',
+    cover: 'https://picsum.photos/800/600?random=1',
+    // REPLACE THESE STRINGS WITH IMPORTED VARIABLES FROM YOUR ASSETS FOLDER
     gallery: [
         'https://picsum.photos/1200/800?random=101',
         'https://picsum.photos/1200/800?random=102',
-        'https://picsum.photos/1200/800?random=103',
-        'https://picsum.photos/1200/800?random=104'
+        'https://picsum.photos/1200/800?random=103'
     ],
     details: {
-      problem: 'The client had a generic look that blended in with competitors. They needed a bold, trustworthy, yet futuristic identity.',
-      solution: 'We developed "Neon Nexus", a visual language based on connectivity and light. The logo represents a secure node in a vast network.',
-      process: ['Discovery Workshop', 'Visual Exploration', 'Refinement', 'System Application'],
-      result: 'Increased user sign-ups by 40% in the first month post-launch.',
+      problem: 'Generic look blending with competitors.',
+      solution: 'Developed "Neon Nexus", a visual language based on connectivity.',
+      process: ['Discovery', 'Visual Exploration', 'System Application'],
+      result: 'Increased sign-ups by 40%.',
       deliverables: ['Logo Suite', 'App UI Kit', 'Marketing Assets'],
       colors: ['#00F0FF', '#7000FF', '#121212'],
     },
@@ -106,17 +109,16 @@ export const PROJECTS: Project[] = [
     client: 'SaaS Platform',
     year: '2025',
     summary: 'Strategic positioning and visual identity for an AI analytics tool.',
-    image: 'https://picsum.photos/800/600?random=2',
+    cover: 'https://picsum.photos/800/600?random=2',
     gallery: [
         'https://picsum.photos/1200/800?random=201',
-        'https://picsum.photos/1200/800?random=202',
-        'https://picsum.photos/1200/800?random=203'
+        'https://picsum.photos/1200/800?random=202'
     ],
     details: {
-      problem: 'Complex technical capabilities were not being communicated clearly to non-technical stakeholders.',
-      solution: 'A clean, minimalistic interface aesthetic combined with approachable, human-centric copywriting.',
+      problem: 'Complex technical capabilities were unclear.',
+      solution: 'Clean, minimalistic interface aesthetic.',
       process: ['Competitor Analysis', 'Brand Archetyping', 'Design Sprint'],
-      result: 'Secured Series A funding with the new pitch deck and brand assets.',
+      result: 'Secured Series A funding.',
       deliverables: ['Brand Book', 'Pitch Deck', 'Web Assets'],
       colors: ['#2ECC71', '#2C3E50', '#ECF0F1'],
     },
@@ -127,20 +129,18 @@ export const PROJECTS: Project[] = [
     category: 'Web3 & NFT',
     client: 'DAO Collective',
     year: '2023',
-    summary: 'Visual identity and NFT collection design for a decentralized autonomous organization.',
-    image: 'https://picsum.photos/800/600?random=3',
+    summary: 'Visual identity and NFT collection design.',
+    cover: 'https://picsum.photos/800/600?random=3',
     gallery: [
         'https://picsum.photos/1200/800?random=301',
         'https://picsum.photos/1200/800?random=302',
-        'https://picsum.photos/1200/800?random=303',
-        'https://picsum.photos/1200/800?random=304',
-        'https://picsum.photos/1200/800?random=305'
+        'https://picsum.photos/1200/800?random=303'
     ],
     details: {
-      problem: 'The DAO needed a unique visual identifier that represented community governance on the blockchain.',
-      solution: 'A generative art system that creates unique profile identities based on wallet holdings.',
+      problem: 'Needed a unique visual identifier for governance.',
+      solution: 'Generative art system for profile identities.',
       process: ['Generative Scripting', '3D Modeling', 'Community Voting'],
-      result: 'Sold out 10,000 unit collection in 24 hours.',
+      result: 'Sold out 10k collection.',
       deliverables: ['10k NFT Collection', 'Smart Contract UI', 'Discord Assets'],
       colors: ['#6366f1', '#a855f7', '#000000'],
     },
