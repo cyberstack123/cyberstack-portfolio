@@ -1,4 +1,21 @@
-// /// <reference types="vite/client" />
+// Removed reference to vite/client which was causing type definition errors
+
+interface ImportMetaEnv {
+  readonly VITE_API_KEY: string;
+  // more env variables...
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
+// Added process declaration to support Gemini SDK API key requirement
+declare const process: {
+  env: {
+    API_KEY: string;
+    [key: string]: string | undefined;
+  }
+};
 
 declare module '*.svg' {
   import * as React from 'react';
@@ -21,10 +38,3 @@ declare module '*.json' {
   const content: string;
   export default content;
 }
-
-declare var process: {
-  env: {
-    API_KEY: string;
-    [key: string]: string | undefined;
-  }
-};
