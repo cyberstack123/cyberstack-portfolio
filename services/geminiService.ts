@@ -1,16 +1,13 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
-const genAI = new GoogleGenerativeAI(apiKey);
+// The API key must be obtained exclusively from the environment variable process.env.API_KEY.
+// Assume this variable is pre-configured, valid, and accessible.
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
 
 export const generateCreativeBrief = async (
   idea: string,
   serviceType: string
 ): Promise<string> => {
-  if (!apiKey) {
-    return "API Key is missing. Please configure the environment.";
-  }
-
   try {
     const prompt = `
       You are a senior creative director at a design studio called CyberStack.
@@ -26,12 +23,15 @@ export const generateCreativeBrief = async (
       Keep it concise and inspiring.
     `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return response.text();
+    // Use gemini-2.5-flash for basic text tasks.
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+    });
+    
+    return response.text || "";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "An error occurred while communicating with the AI Creative Assistant.";
+    return "<p>An error occurred while communicating with the AI Creative Assistant. Please check your network connection or API key.</p>";
   }
 };
